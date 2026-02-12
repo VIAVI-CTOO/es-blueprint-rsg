@@ -1,0 +1,13 @@
+pandas
+numpy
+jupyter
+ipykernel
+python-dotenv
+sqlalchemy
+langchain-nvidia-ai-endpoints
+llama-index-llms-nvidia
+llama-index-embeddings-nvidia
+
+# Internal package (requires authorized access):
+#   pip install https://<server_ip>/package/adk
+# viavi
