@@ -33,20 +33,26 @@ Then fill in your API keys in `.env`:
 ## Usage
 
 ```bash
-source .venv/bin/activate
-jupyter notebook notebooks/
+./run.sh
 ```
 
-In the notebook, select kernel **"ES Blueprint RSG"** to use the correct environment.
+This opens Jupyter Notebook in your browser. Then:
+
+1. Click **`es_blueprint_poc.ipynb`** to open the notebook
+2. Run all cells: `Run` > `Run All Cells` (or `Kernel` > `Restart Kernel and Run All Cells` for a clean run)
+3. When prompted for operator intent, type your intent (e.g. `Optimize energy while maintaining throughput above 2 Mbps`).
+4. The closed-loop simulation will run — progress is printed in the terminal output below each cell
+5. Results are saved to `output/closed_loop_results.png` and `output/closed_loop_log.txt`
 
 ## Project Structure
 
 ```
 es-blueprint-rsg/
 ├── data/                 # Dataset CSVs (CellReports, UEReports)
-├── notebooks/            # Jupyter notebooks for prototyping
-├── src/                  # Reusable Python modules
+├── notebooks/            # Jupyter notebooks
+├── output/               # Simulation results (charts, logs)
 ├── .env.example          # Environment variable template
 ├── requirements.txt      # Python dependencies
-└── setup.sh              # One-command setup script
+├── setup.sh              # One-time setup script
+└── run.sh                # Launch Jupyter Notebook
 ```

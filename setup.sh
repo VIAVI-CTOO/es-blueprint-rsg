@@ -76,5 +76,9 @@ fi
 
 echo ""
 echo "=== Setup complete ==="
-echo "Run: jupyter notebook notebooks/"
+echo "To activate the virtual environment, run:"
+echo "  source $VENV_DIR/bin/activate"
+echo ""
+echo "Then start the notebook:"
+echo "  jupyter notebook notebooks/"
 echo "Make sure to select kernel '$KERNEL_NAME' in the notebook."
