@@ -4,7 +4,7 @@ jupyter==1.1.1
 ipykernel==6.31.0
 python-dotenv==1.2.1
 SQLAlchemy==2.0.46
-langchain-nvidia-ai-endpoints==0.3.19
+langchain-nvidia-ai-endpoints==1.0.4
 llama-index-llms-nvidia==0.4.4
 llama-index-embeddings-nvidia==0.4.2
 matplotlib==3.9.4
