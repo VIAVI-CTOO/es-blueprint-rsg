@@ -1,0 +1,67 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 6 * * 1" # Monday 6am UTC
+
+permissions:
+  security-events: write
+  actions: read
+  contents: read
+  packages: read
+
+jobs:
+  analyze:
+    name: Analyze (Python)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extract Python from notebooks
+        run: |
+          pip install nbconvert
+          mkdir -p _extracted
+          for nb in notebooks/*.ipynb; do
+            basename=$(basename "$nb" .ipynb)
+            jupyter nbconvert --to script "$nb" --output-dir _extracted --output "$basename"
+          done
+
+          # Strip IPython magic/shell commands that cause syntax errors
+          for py in _extracted/*.py; do
+            sed -i '/^get_ipython()/d' "$py"
+            sed -i '/^!pip /d' "$py"
+            sed -i '/^!/d' "$py"
+          done
+
+          # Verify syntax; remove files that still fail
+          for py in _extracted/*.py; do
+            if ! python -m py_compile "$py" 2>/dev/null; then
+              echo "WARNING: $py has syntax errors, removing"
+              rm "$py"
+            fi
+          done
+
+          echo "Extracted files:"
+          ls -la _extracted/
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: python
+          queries: security-extended
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:python"
