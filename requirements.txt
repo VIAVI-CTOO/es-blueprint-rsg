@@ -7,7 +7,7 @@ SQLAlchemy==2.0.46
 langchain-nvidia-ai-endpoints==0.3.19
 llama-index-llms-nvidia==0.4.4
 llama-index-embeddings-nvidia==0.4.2
-matplotlib==3.9.4
+matplotlib==3.10.8
 # Internal package (requires authorized access):
 #   pip install https://<server_ip>/package/adk
 # viavi
