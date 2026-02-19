@@ -7,11 +7,13 @@ build/
 
 # Virtual environment
 .venv/
+.venv-3.12/
 venv/
 env/
 
 # Jupyter
 .ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
 
 # Environment
 .env
