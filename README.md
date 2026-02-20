@@ -141,7 +141,7 @@ The notebook automatically installs the required ADK from the RSG host.
 - Python 3.10+
 - Jupyter Notebook or Jupyter Lab
 - Access to VIAVI RSG instance
-- NVIDIA API key for LLM access
+- NVIDIA API key for LLM access (Obtain from https://build.nvidia.com/settings/api-keys)
 
 ### Python Dependencies
 
