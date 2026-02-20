@@ -8,7 +8,7 @@ Intent-Based RAN Energy Saving Blueprint implements a validated, closed-loop sim
 
 The system integrates:
 
-- VIAVI Scenario Generator (RSG)
+- VIAVI RAN Scenario Generator (AI RSG)
 - VIAVI ADK
 - Large Language Models (LLMs)
 - A two-agent architecture:
@@ -41,14 +41,14 @@ Planner Agent (LLM)
   Generate proposed sleep/wake plan
         |
         v
-RSG Simulation -- Impact Evaluation
+AI RSG Simulation -- Impact Evaluation
         |
         v
 Validation Agent (LLM)
   Approve / reject / adjust actions
         |
         v
-RSG Simulation -- Apply Validated Actions
+AI RSG Simulation -- Apply Validated Actions
         |
         v
 Updated Network State --> Next Iteration
@@ -97,7 +97,7 @@ Each iteration performs:
 
 1. Load network state and KPIs
 2. Generate action plan using Planner Agent
-3. Simulate proposed actions using VIAVI RSG
+3. Simulate proposed actions using VIAVI AI RSG
 4. Validate actions using Validation Agent
 5. Apply validated actions to simulation
 6. Record KPIs and system state
@@ -110,10 +110,10 @@ This creates a continuous validated control loop.
 The simulation is executed using:
 
 - VIAVI ADK
-- VIAVI Radio Scenario Generator (RSG)
+- VIAVI RAN Scenario Generator (AI RSG)
 - Scenario configuration file (`.conf`)
 
-The notebook automatically installs the required ADK from the RSG host.
+The notebook automatically installs the required ADK from the AI RSG host.
 
 ## Repository Structure
 
@@ -124,8 +124,8 @@ The notebook automatically installs the required ADK from the RSG host.
 ├── data/
 │   ├── UEReports.csv            # UE KPI dataset
 │   └── CellReports.csv          # Cell KPI dataset
-├── AIRSG_conf/
-│   └── config.conf              # RSG scenario configuration
+├── ai_rsg_config/
+│   └── config.conf              # AI RSG scenario configuration
 ├── output/                      # Simulation results (charts, logs)
 ├── .env.example                 # Environment variable template
 ├── requirements.txt             # Python dependencies
@@ -140,8 +140,8 @@ The notebook automatically installs the required ADK from the RSG host.
 
 - Python 3.10+
 - Jupyter Notebook or Jupyter Lab
-- Access to VIAVI RSG instance
-- NVIDIA API key for LLM access (Obtain from https://build.nvidia.com/settings/api-keys)
+- Access to VIAVI AI RSG instance
+- NVIDIA API key for LLM access
 
 ### Python Dependencies
 
@@ -152,7 +152,7 @@ The notebook automatically installs the required ADK from the RSG host.
 - langchain
 - langchain-nvidia-ai-endpoints
 
-The VIAVI ADK is installed automatically from the RSG host.
+The VIAVI ADK is installed automatically from the AI RSG host.
 
 ## Setup
 
@@ -199,7 +199,7 @@ The VIAVI ADK is installed automatically from the RSG host.
    | `NVIDIA_API_KEY` | API key for NVIDIA AI endpoints |
    | `RSG_ADDRESS` | AI RSG endpoint |
    | `LLM_MODEL` | LLM model used for this blueprint |
-   | `SCENARIO_CONF` | RSG scenario configuration file path (overrides default) |
+   | `SCENARIO_CONF` | AI RSG scenario configuration file path (overrides default) |
 
 4. **Run the notebook**
 
@@ -218,7 +218,7 @@ Key configurable parameters include:
 | `NUM_ITERATIONS` | Number of simulation intervals |
 | `START_DATETIME` | Simulation start time |
 | `QOS_THRESHOLD` | Minimum acceptable throughput |
-| `SCENARIO_CONF` | RSG scenario configuration file |
+| `SCENARIO_CONF` | AI RSG scenario configuration file |
 | `operator_intent` | Optimization objective |
 
 ## Output
