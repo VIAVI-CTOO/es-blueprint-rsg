@@ -12,8 +12,8 @@ The system integrates:
 - VIAVI ADK
 - Large Language Models (LLMs)
 - A two-agent architecture:
-  - **Planner Agent**
-  - **Validation Agent**
+  - Planner Agent**
+  - Validation Agent**
 
 The notebook simulates network behavior over time, generates energy-saving plans, validates them against QoS constraints, and applies approved actions within the simulation environment.
 
