@@ -159,8 +159,8 @@ The VIAVI ADK is installed automatically from the AI RSG host.
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/<your-org>/<repo-name>.git
-   cd <repo-name>
+   git clone https://github.com/VIAVI-CTOO/es-blueprint-rsg.git
+   cd es-blueprint-rsg
    ```
 
 2. **Run the setup script**
@@ -175,7 +175,7 @@ The VIAVI ADK is installed automatically from the AI RSG host.
 
    ```bash
    source .venv/bin/activate
-   pip install https://<server_ip>/package/adk
+   pip install http://3.211.96.252:8000/adk
    ```
 
 3. **Configure API key**
