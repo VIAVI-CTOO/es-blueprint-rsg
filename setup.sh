@@ -3,25 +3,25 @@ set -e
 
 VENV_DIR=".venv"
 KERNEL_NAME="es-blueprint-rsg"
-REQUIRED_PYTHON="3.9"
+REQUIRED_PYTHON="3.10"
 
 echo "=== ES Blueprint RSG - Setup ==="
 
-# Find Python 3.9
+# Find Python 3.10+
 PYTHON_BIN=""
-for cmd in python3.9 python3 python; do
+for cmd in python3.12 python3.11 python3.10 python3 python; do
     if command -v "$cmd" &> /dev/null; then
-        version=$("$cmd" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+')
-        if [ "$version" = "$REQUIRED_PYTHON" ]; then
+        minor=$("$cmd" --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | cut -d. -f2)
+        if [ "$minor" -ge 10 ] 2>/dev/null; then
             PYTHON_BIN="$cmd"
             break
         fi
     fi
 done
 
-# If Python 3.9 not found, install via pyenv
+# If Python 3.10+ not found, install via pyenv
 if [ -z "$PYTHON_BIN" ]; then
-    echo "Python $REQUIRED_PYTHON not found. Installing via pyenv..."
+    echo "Python 3.10+ not found. Installing Python $REQUIRED_PYTHON via pyenv..."
 
     # Install pyenv if not available
     if ! command -v pyenv &> /dev/null; then
@@ -39,7 +39,7 @@ if [ -z "$PYTHON_BIN" ]; then
         fi
     fi
 
-    # Install Python 3.9
+    # Install Python
     pyenv install -s "$REQUIRED_PYTHON"
     PYTHON_BIN="$(pyenv prefix $REQUIRED_PYTHON)/bin/python"
 fi
