@@ -43,6 +43,8 @@ Aggressive cell sleeping strategies can degrade throughput if not carefully cont
 
 ## System Architecture
 
+![System Architecture](image/image001.jpeg)
+
 The system operates as a closed-loop pipeline:
 
 ```
@@ -269,3 +271,6 @@ It is intended for:
 3. [Georgy Myagkov](www.linkedin.com/in/georgy-myagkov-03a2486) — Wireless R&D Engineer, VIAVI Solutions
 4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Product Manager, NVIDIA
 
+## Disclaimer
+
+*This Intent-Based RAN Energy Saving Blueprint is intended for Proof-of-Concept (PoC) and research purposes only. It is not designed, tested, or intended for production use. This blueprint downloads and uses 3rd party components from Viavi Solutions. The end users must use the latest and most stable version of the software. Any use of this blueprint in a production environment is entirely at the user's own risk. The authors and contributors accept no liability for any damages, service degradation, or losses arising from such use.*
