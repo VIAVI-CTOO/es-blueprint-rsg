@@ -269,7 +269,7 @@ It is intended for:
 1. [Bimo Fransiscus](https://www.linkedin.com/in/fransiscusbimo/) — AI Engineer, CTO Office, VIAVI Solutions
 2. [Mahdi Sharara](https://www.linkedin.com/in/mahdisharara/) — Research Scientist, CTO Office, VIAVI Solutions
 3. [Georgy Myagkov](www.linkedin.com/in/georgy-myagkov-03a2486) — Wireless R&D Engineer, VIAVI Solutions
-4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Product Manager, NVIDIA
+4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Telco AI Principal, NVIDIA
 
 ## Disclaimer
 
