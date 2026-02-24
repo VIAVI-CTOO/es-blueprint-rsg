@@ -2,6 +2,24 @@
 
 Closed-Loop RAN Energy Optimization using VIAVI AI RSG and LLM Agents
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [System Architecture](#system-architecture)
+- [Agents](#agents)
+  - [Planner Agent](#planner-agent)
+  - [Validation Agent](#validation-agent)
+- [Closed-Loop Execution Flow](#closed-loop-execution-flow)
+- [Simulation Environment](#simulation-environment)
+- [Repository Structure](#repository-structure)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Configuration Parameters](#configuration-parameters)
+- [Output](#output)
+- [Purpose](#purpose)
+- [Contributors](#contributors)
+
 ## Overview
 
 Intent-Based RAN Energy Saving Blueprint implements a validated, closed-loop simulation framework for evaluating AI-driven energy optimization strategies in a Radio Access Network (RAN).
@@ -243,3 +261,11 @@ It is intended for:
 - Energy optimization evaluation
 - AI-assisted network control development
 - Simulation-based validation of control strategies
+
+## Contributors
+
+1. [Bimo Fransiscus](https://www.linkedin.com/in/fransiscusbimo/) — AI Engineer, CTO Office, VIAVI Solutions
+2. [Mahdi Sharara](https://www.linkedin.com/in/mahdisharara/) — Research Scientist, CTO Office, VIAVI Solutions
+3. [Georgy Myagkov](www.linkedin.com/in/georgy-myagkov-03a2486) — Wireless R&D Engineer, VIAVI Solutions
+4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Product Manager, NVIDIA
+
