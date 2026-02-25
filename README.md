@@ -206,20 +206,11 @@ The VIAVI ADK is installed automatically from the AI RSG host.
    NVIDIA_API_KEY=<your_api_key>
    ```
 
-   Or export manually:
-
-   ```bash
-   export NVIDIA_API_KEY="<your_api_key>"
-   ```
-
    Available environment variables:
 
    | Variable | Description |
    |---|---|
    | `NVIDIA_API_KEY` | API key for NVIDIA AI endpoints |
-   | `RSG_ADDRESS` | AI RSG endpoint |
-   | `LLM_MODEL` | LLM model used for this blueprint |
-   | `SCENARIO_CONF` | AI RSG scenario configuration file path (overrides default) |
 
 4. **Run the notebook**
 
@@ -228,18 +219,6 @@ The VIAVI ADK is installed automatically from the AI RSG host.
    ```
 
    Open `es_blueprint_poc.ipynb` and run the notebook from top to bottom.
-
-## Configuration Parameters
-
-Key configurable parameters include:
-
-| Parameter | Description |
-|---|---|
-| `NUM_ITERATIONS` | Number of simulation intervals |
-| `START_DATETIME` | Simulation start time |
-| `QOS_THRESHOLD` | Minimum acceptable throughput |
-| `SCENARIO_CONF` | AI RSG scenario configuration file |
-| `operator_intent` | Optimization objective |
 
 ## Output
 
