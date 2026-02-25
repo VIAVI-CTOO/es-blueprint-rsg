@@ -1,6 +1,6 @@
 # Intent-Based RAN Energy Saving Blueprint
 
-Closed-Loop RAN Energy Optimization using VIAVI AI RSG and LLM Agents
+Closed-Loop RAN Energy Optimization using VIAVI TeraVM AI RAN Scenario Generator (AI RSG) and NVIDIA LLM Agents
 
 ## Table of Contents
 
@@ -22,24 +22,29 @@ Closed-Loop RAN Energy Optimization using VIAVI AI RSG and LLM Agents
 
 ## Overview
 
-Intent-Based RAN Energy Saving Blueprint implements a validated, closed-loop simulation framework for evaluating AI-driven energy optimization strategies in a Radio Access Network (RAN).
+The Intent-Based RAN Energy Efficiency Blueprint provides a simulation-validated framework for evaluating AI-driven energy optimization strategies in 5G Radio Access Networks (RAN).
 
-The system integrates:
-
+This blueprint integrates:
 - VIAVI RAN Scenario Generator (AI RSG)
-- VIAVI ADK
-- Large Language Models (LLMs)
-- A two-agent architecture:
-  - Planner Agent**
-  - Validation Agent**
+- VIAVI ADK simulation environment
+- NVIDIA-hosted Large Language Models (LLMs)
+- Closed-loop Planner and Validation agent architecture
 
-The notebook simulates network behavior over time, generates energy-saving plans, validates them against QoS constraints, and applies approved actions within the simulation environment.
+The system simulates network behavior, generates energy-saving actions, validates those actions against QoS constraints, and applies safe optimizations iteratively.
+
+This enables engineering teams to evaluate AI-assisted network control policies before deployment.
+
 
 ## Problem Statement
 
-Reducing RAN energy consumption while maintaining strict QoS requirements is a core engineering challenge.
+Reducing RAN energy consumption while maintaining strict Quality of Service (QoS) guarantees is a critical engineering challenge.
 
-Aggressive cell sleeping strategies can degrade throughput if not carefully controlled. This project evaluates AI-assisted control policies inside a validated simulation loop before deployment.
+Aggressive energy-saving techniques, such as cell sleeping, can negatively impact throughput and user experience if applied incorrectly.
+
+This blueprint evaluates AI-generated energy optimization actions in a validated simulation loop to ensure:
+- Energy efficiency improvements
+- QoS preservation
+- Safe and controlled optimization
 
 ## System Architecture
 
@@ -54,202 +59,258 @@ UEReports + CellReports
 KPI Processing Layer
         |
         v
-State Store (LoopState + SQL)
+State Store (SQL + LoopState)
         |
         v
 Planner Agent (LLM)
-  Generate proposed sleep/wake plan
+  Generate energy-saving actions
         |
         v
-AI RSG Simulation -- Impact Evaluation
+AI RSG Simulation
+  Evaluate impact of proposed actions
         |
         v
 Validation Agent (LLM)
   Approve / reject / adjust actions
         |
         v
-AI RSG Simulation -- Apply Validated Actions
+AI RSG Simulation 
+  Apply Validated Actions
         |
         v
-Updated Network State --> Next Iteration
+Updated Network State 
+        |
+        v
+Next Iteration
 ```
 
 Each iteration represents one simulation time interval.
 
-## Agents
+## Agent Architecture
 
 ### Planner Agent
 
-The Planner Agent is responsible for generating energy-saving plans.
+The Planner Agent generates candidate energy-saving actions.
 
 **Inputs:**
-- Current network KPIs
+- Network KPIs
 - Cell activity and sleep state
-- Site throughput and utilization
-- Operator optimization intent
+- Throughput and utilization
+- Operator intent
 - QoS constraints
 
 **Output:**
-- Proposed sleep/wake actions for network cells
+- Proposed sleep/wake actions
 
-The Planner Agent attempts to maximize energy efficiency while preserving network performance.
+**Objective:**
+
+Maximize energy efficiency while maintaining QoS.
 
 ### Validation Agent
 
-The Validation Agent ensures that Planner Agent actions are safe and QoS-compliant.
-
-**Inputs:**
-- Planner Agent recommendations
-- Simulated KPI impact
-- QoS thresholds
-- Network topology and state
+The Validation Agent ensures safety and QoS compliance.
 
 **Responsibilities:**
+- Evaluate Planner recommendations
 - Reject unsafe or QoS-violating actions
 - Approve valid actions
-- Ensure operational consistency
+- Ensure network stability
 
-The Validation Agent acts as a safety layer before actions are applied to the simulation.
+The Validation Agent acts as a safety layer.
 
 ## Closed-Loop Execution Flow
 
 Each iteration performs:
 
 1. Load network state and KPIs
-2. Generate action plan using Planner Agent
+2. Generate candidate actions using Planner Agent
 3. Simulate proposed actions using VIAVI AI RSG
 4. Validate actions using Validation Agent
-5. Apply validated actions to simulation
+5. Apply validated actions
 6. Record KPIs and system state
 7. Advance simulation time
 
-This creates a continuous validated control loop.
-
-## Simulation Environment
-
-The simulation is executed using:
-
-- VIAVI ADK
-- VIAVI RAN Scenario Generator (AI RSG)
-- Scenario configuration file (`.conf`)
-
-The notebook automatically installs the required ADK from the AI RSG host.
+This creates a validated continuous optimization loop.
 
 ## Repository Structure
 
 ```
-.
+es-blueprint-rsg/
+│
 ├── notebooks/
-│   └── es_blueprint_poc.ipynb   # Main simulation notebook
+│   └── es_blueprint_poc.ipynb      # Main PoC notebook
+│
 ├── data/
-│   ├── UEReports.csv            # UE KPI dataset
-│   └── CellReports.csv          # Cell KPI dataset
+│   ├── UEReports.csv
+│   └── CellReports.csv
+│
 ├── ai_rsg_config/
-│   └── config.conf              # AI RSG scenario configuration
-├── output/                      # Simulation results (charts, logs)
-├── .env.example                 # Environment variable template
-├── requirements.txt             # Python dependencies
-├── setup.sh                     # One-time setup script
-├── run.sh                       # Launch Jupyter Notebook
+│   └── config.conf
+│
+├── output/                         # Simulation results
+│
+├── .env.example
+├── requirements.txt
+├── setup.sh
+├── run.sh
 └── README.md
 ```
 
 ## Requirements
 
-### System Requirements
+System requirements:
 
-- Python 3.10+
+- Python 3.10 or newer
 - Jupyter Notebook or Jupyter Lab
 - Access to VIAVI AI RSG instance
-- NVIDIA API key for LLM access (Obtain from https://build.nvidia.com/settings/api-keys)
+- NVIDIA API Key
 
-### Python Dependencies
+Get your NVIDIA API key here: https://build.nvidia.com/settings/api-keys
 
-- pandas
-- sqlalchemy
-- requests
-- python-dotenv
-- langchain
-- langchain-nvidia-ai-endpoints
+## Setup Instructions
 
-The VIAVI ADK is installed automatically from the AI RSG host.
-
-## Setup
-
-1. **Clone the repository**
+### 1. Clone the repository
 
    ```bash
    git clone https://github.com/VIAVI-CTOO/es-blueprint-rsg.git
    cd es-blueprint-rsg
    ```
 
-2. **Run the setup script**
+### 2. Run setup script
 
    ```bash
    ./setup.sh
    ```
+This creates a virtual environment and installs dependencies.
 
-   This will create a virtual environment and install all dependencies.
+Activate environment:
 
-   After setup, install the internal `viavi` package (authorized access required):
+```bash
+source .venv/bin/activate
+```
 
-   ```bash
-   source .venv/bin/activate
-   pip install http://3.211.96.252:8000/adk
-   ```
+Install VIAVI ADK package (requires authorized access):
 
-3. **Configure API key**
+```bash
+pip install http://3.211.96.252:8000/adk
+```
+
+### 3. Configure NVIDIA API Key
 
    Create a `.env` file:
 
    ```
-   NVIDIA_API_KEY=<your_api_key>
+   NVIDIA_API_KEY=nvapi-xxxxxxxxxxxxxxxx
    ```
-
-   Available environment variables:
+   
+   Optional environment variables:
 
    | Variable | Description |
    |---|---|
    | `NVIDIA_API_KEY` | API key for NVIDIA AI endpoints |
 
-4. **Run the notebook**
+## Running the Notebook
 
-   ```bash
-   ./run.sh
-   ```
+Launch Jupyter:
 
-   Open `es_blueprint_poc.ipynb` and run the notebook from top to bottom.
+```bash
+./run.sh
+```
+
+Open:
+
+```
+notebooks/es_blueprint_poc.ipynb
+````
+
+Run all cells sequentially.
+
+### Expected Successful Startup Output
+
+You should see:
+
+```
+✓ NVIDIA_API_KEY loaded (hidden)
+✓ LLM sanity check passed
+```
+
+If these messages appear, the system is correctly configured.
+
+## Operator Intent Input
+
+The notebook accepts operator QoS intent. Examples:
+
+```
+Keep QoS above 5 Mbps
+>= 4.5 Mbps
+6 Mbps
+5
+```
 
 ## Output
 
-The notebook produces:
+The system produces:
 
 - Planner Agent recommendations
-- Validation Agent approval decisions
+- Validation decisions
 - Applied energy-saving actions
-- QoS and throughput measurements
-- Iteration summary across simulation
+- QoS and throughput metrics
+- Iteration summaries
 
-These outputs enable engineering evaluation of energy-saving strategies.
+These results allow engineers to evaluate optimization strategies.
+
+## Troubleshooting
+
+### NVIDIA_API_KEY error
+
+**Cause:** 
+Missing or invalid API key.
+
+**Solution:** 
+
+- Verify the key is set:
+
+```bash
+echo $NVIDIA_API_KEY
+```
+
+- Ensure the key is correctly configured in `.env`.
+
+### LLM sanity check failed
+
+- **Cause:** 
+  - Invalid API key or network access issue.
+
+- **Solution:** 
+  - Verify API key and internet connectivity.
+
+### Missing data files
+
+Ensure these files exist:
+
+```
+data/UEReports.csv
+data/CellReports.csv
+```
 
 ## Purpose
 
-This repository provides an engineering framework for evaluating AI-assisted RAN energy optimization using validated, simulation-driven control loops.
+This blueprint provides a research and engineering framework for:
 
-It is intended for:
-
-- RAN engineering experimentation
-- Energy optimization evaluation
-- AI-assisted network control development
-- Simulation-based validation of control strategies
+- Evaluating AI-driven energy optimization
+- Testing network control policies safely
+- Simulating RAN energy optimization scenarios
+- Validating AI-assisted network automation
 
 ## Contributors
 
 1. [Bimo Fransiscus](https://www.linkedin.com/in/fransiscusbimo/) — AI Engineer, CTO Office, VIAVI Solutions
 2. [Mahdi Sharara](https://www.linkedin.com/in/mahdisharara/) — Research Scientist, CTO Office, VIAVI Solutions
 3. [Georgy Myagkov](www.linkedin.com/in/georgy-myagkov-03a2486) — Wireless R&D Engineer, VIAVI Solutions
-4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Telco AI Principal, NVIDIA
+4. [Ari Uskudar](https://www.linkedin.com/in/ari-u-628b30148/) — Product Manager, NVIDIA
+
+For blueprint related questions send e-mail to: IB_ES_blueprint@viavisolutions.com 
 
 ## Disclaimer
 
-*This Intent-Based RAN Energy Saving Blueprint is intended for Proof-of-Concept (PoC) and research purposes only. It is not designed, tested, or intended for production use. This blueprint downloads and uses 3rd party components from Viavi Solutions. The end users must use the latest and most stable version of the software. Any use of this blueprint in a production environment is entirely at the user's own risk. The authors and contributors accept no liability for any damages, service degradation, or losses arising from such use.*
+*This Intent-Based RAN Energy Efficiency Blueprint is intended for Proof-of-Concept and research use only. It is not designed for production deployment. Use in production environments is at the user's own risk. The authors and contributors accept no liability for operational impacts or damages.*
